@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#060913" id="meta-theme-color" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="ZGOD RITTIK Official Cloud Hub - Custom ROMs, Flashing Tools, KernelSU Modules, Termux Scripts & Video Guides." />
+  <title>ZGOD RITTIK — Custom ROMs &amp; Tools Cloud Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Layer 0: 60 FPS Animated Ambient Canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Global Error Shield Banner -->
+  <div id="error-shield" class="error-shield hidden" role="alert">
+    <div class="error-shield-head">
+      <span>RUNTIME DIAGNOSTIC</span>
+      <button id="btn-copy-error" class="mini-pill-btn" type="button">Copy Log</button>
+    </div>
+    <pre id="error-shield-text"></pre>
+  </div>
+
+  <!-- Layer 1: Foreground Safe-Area Shell -->
+  <div id="app-shell" class="app-shell">
+    <!-- Top Glass Header -->
+    <header class="glass-header">
+      <div class="brand-group">
+        <div class="brand-title-row">
+          <h1 class="brand-title">ZGOD RITTIK</h1>
+          <span class="live-badge"><span class="live-dot"></span>CLOUD</span>
+        </div>
+        <p class="brand-subtitle">CUSTOM ROMS &bull; TOOLS &bull; VIDEO HUB</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-search-toggle" class="circle-icon-btn spring-tap" type="button" aria-label="Search"></button>
+        <button id="btn-theme-open" class="circle-icon-btn spring-tap" type="button" aria-label="Themes"></button>
+        <button id="btn-creator-open" class="circle-icon-btn spring-tap" type="button" aria-label="Creator Studio"></button>
+      </div>
+    </header>
+
+    <!-- Collapsible Search Bar -->
+    <div id="search-bar-wrap" class="search-bar-wrap hidden">
+      <div class="glass-search-box">
+        <span id="search-icon-slot" class="search-icon-slot"></span>
+        <input id="global-search-input" type="search" placeholder="Search ROMs, tools, scripts, videos..." autocomplete="off" />
+        <button id="btn-search-clear" class="text-clear-btn hidden" type="button">Clear</button>
+      </div>
+    </div>
+
+    <!-- Main Content Views -->
+    <main id="main-content" class="main-content">
+      <!-- HOME VIEW -->
+      <section id="view-home" class="view-section active">
+        <!-- Hero Channel & Cloud Overview Card -->
+        <article class="glass-card hero-card">
+          <div class="hero-top">
+            <div>
+              <span class="eyebrow-tag">OFFICIAL YOUTUBE ARCHIVE</span>
+              <h2 class="hero-heading">Android Modding, Custom ROMs &amp; Termux Tools</h2>
+              <p class="hero-desc">Verified HyperOS ports, AOSP builds, Fastboot flashers, KernelSU modules, and step-by-step video guides in one cloud repository.</p>
+            </div>
+          </div>
+
+          <div class="stats-strip">
+            <div class="stat-pill">
+              <span class="stat-val" id="stat-roms">0</span>
+              <span class="stat-lbl">ROM BUILDS</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val" id="stat-tools">0</span>
+              <span class="stat-lbl">TOOLS &amp; APKS</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val" id="stat-videos">0</span>
+              <span class="stat-lbl">TUTORIALS</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val" id="stat-saved">0</span>
+              <span class="stat-lbl">SAVED</span>
+            </div>
+          </div>
+
+          <div class="hero-cta-row">
+            <a class="primary-glass-btn spring-tap" href="https://www.youtube.com/@ZGODRITTIK" target="_blank" rel="noopener noreferrer">
+              <span id="yt-btn-icon"></span>
+              <span>YouTube Channel</span>
+            </a>
+            <button id="btn-quick-add" class="secondary-glass-btn spring-tap" type="button">
+              <span id="plus-btn-icon"></span>
+              <span>Add Entry</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- 2x2 Bento Grid -->
+        <div class="bento-grid">
+          <button class="glass-card bento-tile tile-cyan spring-tap" data-nav="roms" type="button">
+            <div class="bento-icon" id="bento-icon-roms"></div>
+            <div class="bento-meta">
+              <h3>Custom ROMs</h3>
+              <p>HyperOS Ports, China Base &amp; AOSP</p>
+            </div>
+          </button>
+
+          <button class="glass-card bento-tile tile-violet spring-tap" data-nav="tools" type="button">
+            <div class="bento-icon" id="bento-icon-tools"></div>
+            <div class="bento-meta">
+              <h3>Z-GOD Tools</h3>
+              <p>Flashers, APKs &amp; Root Modules</p>
+            </div>
+          </button>
+
+          <button class="glass-card bento-tile tile-emerald spring-tap" data-nav="tools" data-filter="Termux Scripts" type="button">
+            <div class="bento-icon" id="bento-icon-scripts"></div>
+            <div class="bento-meta">
+              <h3>Termux Scripts</h3>
+              <p>One-Tap Copy &amp; .sh Downloads</p>
+            </div>
+          </button>
+
+          <button class="glass-card bento-tile tile-rose spring-tap" data-nav="videos" type="button">
+            <div class="bento-icon" id="bento-icon-videos"></div>
+            <div class="bento-meta">
+              <h3>Video Guides</h3>
+              <p>Flashing, Root &amp; Shizuku Walkthroughs</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Featured Quick Termux Terminal Block -->
+        <article class="glass-card terminal-card">
+          <div class="terminal-header">
+            <div class="terminal-title-group">
+              <span class="term-dots"><i></i><i></i><i></i></span>
+              <span class="term-filename">termux-fastboot-check.sh</span>
+            </div>
+            <div class="terminal-actions">
+              <button class="mini-pill-btn spring-tap" data-copy-code="pkg update -y && pkg install android-tools -y && fastboot devices" type="button">Copy</button>
+              <button class="mini-pill-btn spring-tap" data-download-sh="termux-fastboot-check.sh" data-sh-body="#!/usr/bin/env bash&#10;pkg update -y && pkg install android-tools -y&#10;fastboot devices&#10;" type="button">.sh</button>
+            </div>
+          </div>
+          <pre class="terminal-code"><code><span class="tok-cmd">pkg</span> update -y &amp;&amp; <span class="tok-cmd">pkg</span> install android-tools -y
+<span class="tok-cmd">fastboot</span> devices <span class="tok-cmt"># Verify OTG bootloader connection</span></code></pre>
+        </article>
+
+        <!-- Bottom Safety & Flashing Notice Card -->
+        <article class="glass-card safety-card">
+          <div class="safety-icon" id="safety-icon-slot"></div>
+          <div class="safety-text">
+            <h4>Flashing &amp; Anti-Rollback Notice</h4>
+            <p>Always backup <code>persist</code>, <code>nvram</code>, and internal storage before flashing regional ports or super.img builds. Verify SHA-256 hashes prior to execution.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- ROMS VIEW -->
+      <section id="view-roms" class="view-section">
+        <div class="section-head">
+          <h2>Custom ROM Archive</h2>
+          <span class="count-chip" id="roms-visible-count">0 Builds</span>
+        </div>
+        <div class="filter-pills" id="roms-filters"></div>
+        <div class="cards-stack" id="roms-list"></div>
+      </section>
+
+      <!-- TOOLS & SCRIPTS VIEW -->
+      <section id="view-tools" class="view-section">
+        <div class="section-head">
+          <h2>Tools, APKs &amp; Scripts</h2>
+          <span class="count-chip" id="tools-visible-count">0 Items</span>
+        </div>
+        <div class="filter-pills" id="tools-filters"></div>
+        <div class="cards-stack" id="tools-list"></div>
+      </section>
+
+      <!-- VIDEOS VIEW -->
+      <section id="view-videos" class="view-section">
+        <div class="section-head">
+          <h2>YouTube Video Tutorials</h2>
+          <span class="count-chip" id="videos-visible-count">0 Guides</span>
+        </div>
+        <div class="filter-pills" id="videos-filters"></div>
+        <div class="cards-stack" id="videos-list"></div>
+      </section>
+    </main>
+
+    <!-- Floating Glass Bottom Navigation Bar -->
+    <nav class="glass-bottom-nav" aria-label="Primary Navigation">
+      <button class="nav-tab active spring-tap" data-tab="home" type="button">
+        <span class="nav-icon" id="nav-icon-home"></span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-tab spring-tap" data-tab="roms" type="button">
+        <span class="nav-icon" id="nav-icon-roms"></span>
+        <span class="nav-label">ROMs</span>
+      </button>
+      <button class="nav-tab spring-tap" data-tab="tools" type="button">
+        <span class="nav-icon" id="nav-icon-tools"></span>
+        <span class="nav-label">Tools</span>
+      </button>
+      <button class="nav-tab spring-tap" data-tab="videos" type="button">
+        <span class="nav-icon" id="nav-icon-videos"></span>
+        <span class="nav-label">Videos</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Slide-Up Glass Bottom Sheet / Modal -->
+  <div id="sheet-backdrop" class="sheet-backdrop hidden" aria-hidden="true">
+    <div id="glass-sheet" class="glass-sheet" role="dialog" aria-modal="true">
+      <div class="sheet-handle-bar"><span class="sheet-handle"></span></div>
+      <div class="sheet-header">
+        <h3 id="sheet-title">Details</h3>
+        <button id="btn-sheet-close" class="circle-icon-btn small spring-tap" type="button" aria-label="Close"></button>
+      </div>
+      <div id="sheet-body" class="sheet-body"></div>
+    </div>
+  </div>
+
+  <!-- Floating Glass Pill Snackbar -->
+  <div id="pill-snackbar" class="pill-snackbar" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
